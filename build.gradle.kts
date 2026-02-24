@@ -10,13 +10,24 @@ plugins {
     id("application")
 }
 
-group = "gamebot"
+group = "GamieBot"
 version = "1.0.0"
 
 repositories {
     mavenCentral()
 }
 
+dependencies {
+    implementation("org.telegram:telegrambots:6.9.7.1")
+    implementation("org.slf4j:slf4j-simple:2.0.9")
+}
+
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(22))
+    }
+}
+
 application {
-    mainClass.set("gamebot.Main")
+    mainClass.set("GamieBot.Main")
 }
