@@ -1,9 +1,9 @@
 package GamieBot.model;
 
+import java.util.ArrayList;
+
 import GamieBot.model.games.IGame;
 import GamieBot.model.users.User;
-
-import java.util.ArrayList;
 
 
 public class GameSession {
@@ -15,11 +15,27 @@ public class GameSession {
         this.users = users;
     }
 
-    public void makeMove(String chatId, String action) {
-
+    public boolean makeMove(User player, String action) {
+        int playerNum = -1;
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i) == player) {
+                playerNum = i;
+                break;
+            }
+        }
+        if (game.checkMove(playerNum, action)) {
+            game.makeMove(playerNum, action);
+            return false;
+        } else {
+            return true;
+        }
     }
 
     public ArrayList<Response> getInfoForPlayers() {
-        return new ArrayList<>();
+        ArrayList<Response> ans = new ArrayList<>();
+        for (int i = 0; i < users.size(); i++) {
+            ans.add(new Response(users.get(i).chatId(), game.getInfoForPlayer(i)));
+        }
+        return ans;
     }
 }

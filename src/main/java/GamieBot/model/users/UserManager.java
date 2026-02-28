@@ -9,4 +9,8 @@ public class UserManager {
     public UserManager() {
         users = new HashMap<>();
     }
+
+    public User getUser(String chatId) {
+        return users.getOrDefault(chatId, null);
+    }
 }
